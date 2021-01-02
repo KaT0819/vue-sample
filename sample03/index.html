@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- 宣言 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+<div id="app">
+    <template v-if="ok">OK OK</template>
+    <p v-else-if="maybeOk">maybeOk</p>
+    <p v-else>Not OK</p>
+
+    <p v-show="ok">Show</p>
+
+    <button @click="remove">先頭を削除</button>
+
+    <ul><li v-for="fruit in fruits" key="fruit">{{fruit}}</li></ul>
+    <ul><li v-for="(fruit, idx) in fruits">{{idx}}:{{fruit}}</li></ul>
+    <ul><li v-for="value in object">{{value}}</li></ul>
+    <ul><li v-for="(value, key, idx) in object">{{idx}}:{{key}}:{{value}}</li></ul>
+
+</div>
+<hr>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            ok: true,
+            maybeOk: true,
+            fruits: ['apple', 'banana', 'mango', 'orange'],
+            object: {
+                title: 'How to do lists in Vue',
+                author: 'Jane Doe',
+                publishedAt: '2016-04-10'
+            }
+        },
+        methods: {
+            remove: function() {
+                this.fruits.shift();
+            },
+
+        }
+    })
+</script>
+
+</body>
+</html>

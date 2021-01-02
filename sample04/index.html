@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- 宣言 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+<div id="app">
+    <p>{{msg}}</p>
+
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+</div>
+<hr>
+
+<div id="app2">
+    <p>{{msg}}</p>
+    <button @click="changeMessage">インスタンス１の値を変更</button>
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+    <p>{{myData}}</p>
+</div>
+<hr>
+
+
+<script>
+    var varData = {
+        message: "こんにちは",
+        name: "おじさん"
+    }
+
+    Vue.component('hello', {
+        template: '<p>componentハロー</p>'
+    });
+
+    var vm1 = new Vue({
+        el: '#app',
+        data: {
+            msg: "インスタンス１",
+            varData
+        },
+        render: function (createElement) {
+            return createElement('h1', 'おはようございます。' + this.$data.varData.name)
+        }
+    })
+    //vm1.msg = '変更します';
+
+    new Vue({
+        el: '#app2',
+        data: {
+            msg: "インスタンス２",
+            varData
+        },
+        methods: {
+            changeMessage: function() {
+                vm1.msg = "インスタンス２で変えました。"
+            }
+        },
+        computed: {
+            myData: function() {
+                return this.$data
+            }
+        }
+    })
+
+    // el未指定で後から指定する場合
+    // vm1.%mount('#app')
+
+</script>
+
+</body>
+</html>
